@@ -13,16 +13,21 @@
     <body>
         <nav class="navbar navbar-light bg-secondary">
             <div class="container-fluid">
-              <span class="navbar-brand mb-0 h1">Navbar</span>
+              <span class="navbar-brand mb-0 h1 text-white">Navbar</span>
+              <span> 
+                <a href="{{ route('logout') }}" class="nav-link btn btn-rounded  bg-primary text-white">
+                    Logout
+                </a>
+            </span>
             </div>
           </nav>
           <h3>Terfavorit</h3>
           @foreach ($data as $item)
           <div class=" container justify-content-center display-flex">
-              <div class="row">
-                  <div class="col-6">
+              <div class="row row-cols-2">
+                  <div class="col">
                     <div class="card" style="width: 18rem;">
-                       <img src="D:\xampp\htdocs\to-lsp\storage\app{{$item->gambar_artikel}}" alt="">
+                       <img src="{{ asset('storage/'.$item->gambar_artikel) }}" width="200" height="auto" alt="">
                         <div class="card-body">
                           <h5 class="card-title">{{$item->judul_artikel}}</h5>
                           <p class="card-text">{{$item->isi_artikel}}</p>
@@ -41,7 +46,7 @@
             <div class="row">
                 <div class="col-6">
                   <div class="card" style="width: 18rem;">
-                     <img src="D:\xampp\htdocs\to-lsp\storage\app{{$item->gambar_artikel}}" alt="">
+                     <img src="{{ asset('storage/'.$item->gambar_artikel) }}" alt="">
                       <div class="card-body">
                         <h5 class="card-title">{{$item->judul_artikel}}</h5>
                         <p class="card-text">{{$item->isi_artikel}}</p>

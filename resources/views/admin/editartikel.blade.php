@@ -30,14 +30,17 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form method="POST" action="{{ route('update-artikel', $id = $data->id_artikel) }}" id="quickForm">
+            <form method="POST" action="{{ route('update-artikel', $id = $data->id_artikel) }}" id="quickForm" enctype="multipart/form-data">
               @csrf
               <div class="card-body">
                 <input type="hidden" name="user_id" value={{$data->user_id}}>
                 <div class="form-group">
+
                   <label for="kategori_id">Kategori Id</label>
                   <select type="text" name="kategori_id" class="form-control" id="kategori_id" placeholder="Masukkan Kategori Id">
-                    <option value="{{$data->kategori_id}}">{{$data->kategori_id}}</option>
+                    @foreach ($kategori as $item)
+                    <option value="{{$item->id_kategori}}">{{$item->nama_kategori}}</option>
+                    @endforeach
                   </select>
                 </div>
                 <div class="form-group">
@@ -50,7 +53,15 @@
                 </div>
                 <div class="form-group">
                   <label for="gambar_artikel">Gambar Artikel</label>
+                  
+                  {{-- Preview Gambar --}}
+                  @if ($data->gambar_artikel)
+                      <img src="{{ asset('storage/'.$data->gambar_artikel) }}" class="img-preview img-fluid mb-3 d-inline" width="100">
+                  @else
+                      <img src="">
+                  @endif
                   <input value="{{$data->gambar_artikel}}" type="file" name="gambar_artikel" class="form-control" id="gambar_artikel" placeholder="Masukkan Isi">
+                  <p class="alert alert-danger mt-5">Harap Gambar diisi</p>
                 </div>
               </div>
               <!-- /.card-body -->

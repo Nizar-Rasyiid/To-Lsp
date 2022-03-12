@@ -78,8 +78,10 @@ class ArtikelController extends Controller
      */
     public function show($id)
     {
+        // Fitur untuk membaca
         $show = Artikel::where('id_artikel', $id)->value('read');
         $data = Artikel::where('id_artikel', $id)->first();
+        // menambah satu agar masuk ke dalam column read,dan menjadi acuan untuk menjadi ter favorit
         $data->read = $show + 1;
         $data->save();
         return view('user/read', ['data' => $data]);
@@ -94,9 +96,12 @@ class ArtikelController extends Controller
     public function edit($id)
     {
         $data = Artikel::where('id_artikel',$id)->first();
-        // $kategori= Kategori::get();
+        $kategori = Kategori::get();
         if ($data) {
-            return view('admin/editartikel',['data' => $data,'kategori' => Kategori::get()]);
+            return view('admin/editartikel',[
+                'data' => $data,
+                'kategori' => $kategori,
+            ]);
         }else {
             return abort('404');
         }
@@ -111,28 +116,21 @@ class ArtikelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Artikel::where('id_artikel',$id)->first();
 
-        if ($data) {
+        $filename = $request->gambar_artikel->getClientOriginalName(null);
+        $image = $request->gambar_artikel->storeAs('artikel',$filename);
 
-            //change data which have been gotten from database from input in website
+        $data = Artikel::where('id_artikel',$id)->firstOrfail();
+
             $data->user_id = $request->user_id;
             $data->kategori_id = $request->kategori_id;
             $data->judul_artikel = $request->judul_artikel;
             $data->isi_artikel = $request->isi_artikel;
-            $data->gambar_artikel = $request->gambar_artikel;
+            $data->gambar_artikel = $image;
 
-            //saving process/update the latest data in database
-            $result = $data->save();
+            $data->save();
 
-            //Chechking if it's true go to tarif
-            if ($result) {
-               return redirect()->route('artikel');
-            }
-            return view('admin/editartikel',['data' => $data]);
-        }else {
-            abort('404');
-        }
+            return redirect()->route('artikel');
     }
 
 

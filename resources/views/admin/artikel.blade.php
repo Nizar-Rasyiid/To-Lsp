@@ -48,7 +48,7 @@
                   <td>{{$artikel->kategori_id}}</td>
                   <td>{{$artikel->judul_artikel}}</td>
                   <td>{{$artikel->isi_artikel}}</td>
-                  <td><img src="{{'storage/'.$artikel->gambar_artikel}}" alt=""></td>
+                  <td><img src="{{ asset('storage/'.$artikel->gambar_artikel) }}" width="100"></td>
                   <td>
                   <a href="{{ route('edit-artikel',$artikel->id_artikel) }}"><button class="btn btn-success">Edit</button></a>
                   <a href="{{ route('delete-artikel',$artikel->id_artikel) }}"><button class="btn btn-danger">Delete</button></a>

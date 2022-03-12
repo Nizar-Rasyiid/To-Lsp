@@ -34,6 +34,7 @@ Route::get('/register', function () {
 })->name('register');
 
 Route::post('/register',[AuthController::class,'Register'])->name('registerProses');
+Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 // Admin Fitures
 Route::group(['auth::sanctum'],function() {
@@ -42,7 +43,6 @@ Route::group(['auth::sanctum'],function() {
             return view('admin/isidashboard');
         })->name('dashboard');
         
-        Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
         // Artikel Routes
         Route::get('/artikel',[ArtikelController::class,'index'])->name('artikel');
