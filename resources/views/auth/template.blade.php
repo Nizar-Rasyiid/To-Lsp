@@ -17,7 +17,7 @@
     <link rel="stylesheet" href={{ url("assets/css/style.css") }}>
     <link rel="stylesheet" href="{{ url('assets/bootstrap-icons/bootstrap-icons.css') }}">
 
-    <title>Login My Listrik</title>
+    <title>Login Artikel IT</title>
   </head>
   <body>
   
